@@ -1,3 +1,5 @@
+###################################################################################Part-2#########################################################
+
 #!/bin/bash
 
 
@@ -70,3 +72,32 @@ mv ${myname}-httpd-logs-${timestamp}.tar /tmp/
 s3_bucket="upgrad-ankit"
 
 aws s3 cp /tmp/${myname}-httpd-logs-${timestamp}.tar s3://${s3_bucket}/${myname}-httpd-logs-${timestamp}.tar
+
+
+
+
+
+
+
+######################################################Part-3##########################################################3
+
+
+###########To check if inventory.html file exists in /var/www/html/ location##########
+
+if [ ! -f /var/www/html/inventory.html ]; then
+    printf "<h4>Log Type&emsp;Date Created&emsp;Type&emsp;Size</h4>">/var/www/html/inventory.html
+fi
+
+
+
+################Bookkeeping###############################33
+cd /tmp
+printf "<p>`ls -lrt | awk -F" " '/tar/ { print $9 }' | cut -c 7-16`&emsp;`date '+%d%m%Y-%H%M%S'`&emsp;`ls -lrt | awk -F"." '{print $NF}' | grep "tar"`&emsp;`ls -lrt | awk -F" " '/tar/ {print $5"K"}'`</p>">>/var/www/html/inventory.html
+
+
+##########Cron Job Creation###########################
+if [ ! -f /etc/cron.d/automation ]; then
+    touch /etc/cron.d/automation
+   echo "0 0 * * * root /root/Automation_Project/automation.sh" >> /etc/cron.d/automation
+fi
+ 
